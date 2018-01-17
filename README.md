@@ -1,3 +1,3 @@
-# kengen
+# keygen
 Asymmetric encryption algorithm impliment.
 
