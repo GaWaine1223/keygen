@@ -40,19 +40,19 @@ func TestSignature(t *testing.T) {
 
 func TestVerify(t *testing.T) {
 	data := "向优格特转账1000000"
-	pub, ciphertext, err := Signature("路达", []byte(data))
+	pb, ciphertext, err := Signature("路达", []byte(data))
 	if err != nil {
 		fmt.Println(err.Error())
 		t.Fail()
 	}
-	pbKey, err := base64.StdEncoding.DecodeString(pub)
+	pbKey, err := base64.StdEncoding.DecodeString(pb)
 	if err != nil {
 		fmt.Println(err.Error())
 		t.Fail()
 	}
 	pbKey = pbKey[:]
-	pub = base64.StdEncoding.EncodeToString(pbKey)
-	err = Verify(pub, ciphertext, []byte(data))
+	pb = base64.StdEncoding.EncodeToString(pbKey)
+	err = Verify(pb, ciphertext, []byte(data))
 	if err != nil {
 		fmt.Println(err.Error())
 		t.Fail()
