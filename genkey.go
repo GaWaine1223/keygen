@@ -1,3 +1,6 @@
+// Copyright 2018 Lothar . All rights reserved.
+// https://github.com/GaWaine1223
+
 package keygen
 
 import (
@@ -9,9 +12,14 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"encoding/base64"
 )
 
 var basicPath string
+
+func init() {
+	basicPath = "./"
+}
 
 // GenRsaKey 生成Rsa密钥
 func GenRsaKey(bits int, user string) error {
@@ -61,18 +69,15 @@ func GenRsaKey(bits int, user string) error {
 }
 
 func genFilder(user string, basePath ...string) (string, error) {
-	if len(basePath) == 0 {
-		basicPath = "./"
-	}
 	for _, v := range basePath {
 		basicPath = v
 	}
-	userPath := path.Join(basicPath, "keypool", user)
+	userPath := GetUserPath(user)
 	return userPath, os.MkdirAll(userPath, os.ModePerm)
 }
 
-// GetKey 获取密钥[]byte
-func GetKey(p string) ([]byte, error) {
+// getKey 获取密钥[]byte
+func getKey(p string) ([]byte, error) {
 	privateKey, err := ioutil.ReadFile(p)
 	if err != nil {
 		return nil, err
@@ -83,4 +88,17 @@ func GetKey(p string) ([]byte, error) {
 		return nil, errors.New("private key error")
 	}
 	return block.Bytes, nil
+}
+
+func GetKeyMd5(p string) (s string, err error) {
+	key, err := getKey(p)
+	if err != nil {
+		return
+	}
+	s = base64.StdEncoding.EncodeToString(key)
+	return
+}
+
+func GetUserPath(user string) string {
+	return path.Join(basicPath, "keypool", user)
 }
