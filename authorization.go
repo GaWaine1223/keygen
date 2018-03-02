@@ -38,7 +38,7 @@ func Signature(user string, data []byte) (pb, c string, err error) {
 	return
 }
 
-// Signature 直接输入私钥返回签名,结果都是经过base64编码的,pv:私钥md5, c:加密签名md5
+// Signature2 直接输入私钥返回签名,结果都是经过base64编码的,pv:私钥md5, c:加密签名md5
 func Signature2(pv string, data []byte) (c string, err error) {
 	pvKey, err := base64.StdEncoding.DecodeString(pv)
 	if err != nil {
@@ -54,7 +54,6 @@ func Signature2(pv string, data []byte) (c string, err error) {
 	ciphertext, err := rsa.SignPKCS1v15(rand.Reader, priv, crypto.MD5, Digest)
 	return base64.StdEncoding.EncodeToString(ciphertext), err
 }
-
 
 // Verify 验证发布信息属否有效 pb:公钥md5，c:加密签名md5
 func Verify(pb, c string, data []byte) error {

@@ -4,8 +4,8 @@ import (
 	"encoding/base64"
 	"fmt"
 	"log"
-	"testing"
 	"path"
+	"testing"
 )
 
 func TestGenFilder(t *testing.T) {
@@ -63,7 +63,7 @@ func TestVerify(t *testing.T) {
 func TestGetKeyMd5(t *testing.T) {
 	pvKeyPath := path.Join(GetUserPath("路达"), "private.pem")
 	pbKeyPath := path.Join(GetUserPath("路达"), "public.pem")
-	pv, err:= GetKeyMd5(pvKeyPath)
+	pv, err := GetKeyMd5(pvKeyPath)
 	if err != nil {
 		fmt.Println(err.Error())
 		t.Fail()
@@ -82,14 +82,14 @@ func TestGetKeyMd5(t *testing.T) {
 
 func TestVerify2(t *testing.T) {
 	data := "向优格特转账1000000"
-	pv, err:= GetKeyMd5(path.Join(GetUserPath("路达"), "private.pem"))
+	pv, err := GetKeyMd5(path.Join(GetUserPath("路达"), "private.pem"))
 	ciphertext, err := Signature2(pv, []byte(data))
 	if err != nil {
 		fmt.Println(err.Error())
 		t.Fail()
 	}
 
-	pb, err:= GetKeyMd5(path.Join(GetUserPath("路达"), "public.pem"))
+	pb, err := GetKeyMd5(path.Join(GetUserPath("路达"), "public.pem"))
 	pbKey, err := base64.StdEncoding.DecodeString(pb)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -104,4 +104,3 @@ func TestVerify2(t *testing.T) {
 	}
 	// Output: pass
 }
-

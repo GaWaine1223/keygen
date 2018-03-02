@@ -7,12 +7,12 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/x509"
+	"encoding/base64"
 	"encoding/pem"
 	"errors"
 	"io/ioutil"
 	"os"
 	"path"
-	"encoding/base64"
 )
 
 var basicPath string
@@ -90,6 +90,7 @@ func getKey(p string) ([]byte, error) {
 	return block.Bytes, nil
 }
 
+//GetKeyMd5 get the key-file, input the key-file's path
 func GetKeyMd5(p string) (s string, err error) {
 	key, err := getKey(p)
 	if err != nil {
@@ -99,6 +100,7 @@ func GetKeyMd5(p string) (s string, err error) {
 	return
 }
 
+//GetUserPath Get user base path using it's name
 func GetUserPath(user string) string {
 	return path.Join(basicPath, "keypool", user)
 }
