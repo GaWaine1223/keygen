@@ -100,7 +100,7 @@ func GetKeyMd5(p string) (s string, err error) {
 	return
 }
 
-//GetUserPath Get user base path using it's name
+//GetUserPath Get user's basic path by using the name
 func GetUserPath(user string) string {
 	return path.Join(basicPath, "keypool", user)
 }
